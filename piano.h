@@ -11,11 +11,12 @@ public:
 	MainWindow();
 
 private slots:
-	void playNote();
+	void playWhiteNote(int n);
 	void releaseNote();
+
 
 private:
 
-	QPushButton *keys;
+	QPushButton *whiteKey[7];
 };
 #endif
