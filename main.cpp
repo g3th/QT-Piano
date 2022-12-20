@@ -1,10 +1,10 @@
-#include "piano.h"
+#include "keys.h"
 #include <QApplication>
 
 int main(int argc, char* argv[]){
 	QApplication PianoGUI(argc, argv);
-	MainWindow myPiano;
-	myPiano.setFixedSize(500,200);
+	blackKey myPiano;
+	myPiano.setFixedSize(500,400);
 	myPiano.show();
 	return PianoGUI.exec();
 }

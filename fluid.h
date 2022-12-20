@@ -1,7 +1,11 @@
-#include "piano.h"
+#ifndef fluid_h
+#define fluid_h
+
+#include "keys.h"
 #include <fluidsynth.h>
 #include <unistd.h>
 #include <vector>
+#include <iostream>
 using namespace std;
 
 fluid_synth_t* synth;
@@ -19,10 +23,20 @@ void startSynth(){
 	
 }
 
-void MainWindow::playWhiteNote(int n){
+void whiteKey::playWhiteNote(int n){
 	fluid_synth_noteon(synth,0,::whiteNotes[n],100);
 }
 
-void MainWindow::releaseNote(){
+void whiteKey::releaseNote(){
 	fluid_synth_all_notes_off(synth,0);
 }
+
+void blackKey::playBlackNote(int n){
+	fluid_synth_noteon(synth,0,::blackNotes[n],100);
+}
+
+void blackKey::releaseNote(){
+	fluid_synth_all_notes_off(synth,0);
+}
+
+#endif
