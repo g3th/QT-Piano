@@ -11,7 +11,7 @@ whiteKey::whiteKey(){
 
 	for (long unsigned int n = 0; n != sizeof(wKey)/7; ++n){
 		wKey[n] = new QPushButton(this);
-		wKey[n]->setStyleSheet("background-color:white; border: 1px solid black");
+		wKey[n]->setStyleSheet("QPushButton{background-color: white; border: 1px solid black;} QPushButton:pressed {background-color: #DCDCDC;}");
 		wKey[n]->setGeometry(key_horizontal_placement,216, 30, 180);
 		key_horizontal_placement += 31;
 		wKey[n]->show();
@@ -28,10 +28,10 @@ blackKey::blackKey(){
 			
 	for (long unsigned int n = 0; n != sizeof(bKey)/7; ++n){
 		bKey[n] = new QPushButton(this);
-		bKey[n]->setStyleSheet("background-color: black");
+		bKey[n]->setStyleSheet("QPushButton{background-color: black; border: 1px solid black;} QPushButton:pressed {background-color: #404040;}");
 		bKey[n]->setGeometry(key_horizontal_placement,216, 15, 110);
 		if (n == 1 || n == 4 || n == 6 || n == 9 || n == 11 || n == 14 || n == 16){
-			key_horizontal_placement += 2+skip_one_key;
+			key_horizontal_placement += 2 + skip_one_key;
 		}
 		else{
 			key_horizontal_placement += 33;
