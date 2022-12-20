@@ -11,6 +11,7 @@ whiteKey::whiteKey(){
 
 	for (long unsigned int n = 0; n != sizeof(wKey)/7; ++n){
 		wKey[n] = new QPushButton(this);
+		wKey[n]->setStyleSheet("background-color:white");
 		wKey[n]->setGeometry(key_horizontal_placement,180, 60, 180);
 		key_horizontal_placement += 60;
 		wKey[n]->show();

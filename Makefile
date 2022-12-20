@@ -40,7 +40,7 @@ DISTNAME      = QT-Piano1.0.0
 DISTDIR = /home/roberto/Desktop/C++/QT-Piano/.tmp/QT-Piano1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread -lfluidsynth
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread -lfluidsynth   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,10 +53,12 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		piano.cpp moc_keys.cpp \
+		piano.cpp qrc_backgrounds.cpp \
+		moc_keys.cpp \
 		moc_window.cpp
 OBJECTS       = main.o \
 		piano.o \
+		qrc_backgrounds.o \
 		moc_keys.o \
 		moc_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -232,7 +234,8 @@ Makefile: QT-Piano.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		QT-Piano.pro
+		QT-Piano.pro \
+		backgrounds.qrc
 	$(QMAKE) -o Makefile QT-Piano.pro
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf:
@@ -314,6 +317,7 @@ Makefile: QT-Piano.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.con
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 QT-Piano.pro:
+backgrounds.qrc:
 qmake: FORCE
 	@$(QMAKE) -o Makefile QT-Piano.pro
 
@@ -328,6 +332,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents backgrounds.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents fluid.h keys.h window.h $(DISTDIR)/
 	$(COPY_FILE) --parents main.cpp piano.cpp $(DISTDIR)/
@@ -353,8 +358,14 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_backgrounds.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_backgrounds.cpp
+qrc_backgrounds.cpp: backgrounds.qrc \
+		/usr/lib/qt5/bin/rcc \
+		images/background.jpg
+	/usr/lib/qt5/bin/rcc -name backgrounds backgrounds.qrc -o qrc_backgrounds.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
@@ -366,14 +377,11 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_keys.cpp moc_window.cpp
 moc_keys.cpp: keys.h \
 		window.h \
-		keys.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/roberto/Desktop/C++/QT-Piano/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/roberto/Desktop/C++/QT-Piano -I/home/roberto/Desktop/C++/QT-Piano -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include keys.h -o moc_keys.cpp
 
 moc_window.cpp: window.h \
-		keys.h \
-		window.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/roberto/Desktop/C++/QT-Piano/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/roberto/Desktop/C++/QT-Piano -I/home/roberto/Desktop/C++/QT-Piano -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include window.h -o moc_window.cpp
@@ -390,18 +398,21 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
-main.o: main.cpp window.h \
-		keys.h
+main.o: main.cpp keys.h \
+		window.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 piano.o: piano.cpp window.h \
 		keys.h \
 		fluid.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o piano.o piano.cpp
+
+qrc_backgrounds.o: qrc_backgrounds.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_backgrounds.o qrc_backgrounds.cpp
 
 moc_keys.o: moc_keys.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_keys.o moc_keys.cpp
