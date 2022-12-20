@@ -3,9 +3,7 @@
 
 #include "keys.h"
 #include <fluidsynth.h>
-#include <unistd.h>
 #include <vector>
-#include <iostream>
 using namespace std;
 
 fluid_synth_t* synth;
