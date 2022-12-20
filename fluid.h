@@ -10,8 +10,8 @@ fluid_synth_t* synth;
 fluid_settings_t* settings;
 fluid_audio_driver_t* adriver;
 
-vector<int> whiteNotes = {60,62,64,65,67,69,71,72};
-vector<int> blackNotes = {61,63,66,68,70};
+vector<int> blackNotes = {36,38,41,43,45,48,50,53,55,57,60,62,65,67,69,72,74,77,79,81};
+vector<int> whiteNotes = {35,37,39,40,42,44,46,47,49,51,52,54,56,58,59,61,63,64,66,68,70,71,73,75,76,78,80,82,83};
 
 void startSynth(){
 	settings = new_fluid_settings();

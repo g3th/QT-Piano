@@ -1,7 +1,7 @@
 #include "window.h"
 #include "keys.h"
 #include "fluid.h"
-#include <iostream>
+
 using namespace std;
 
 whiteKey::whiteKey(){
@@ -11,9 +11,9 @@ whiteKey::whiteKey(){
 
 	for (long unsigned int n = 0; n != sizeof(wKey)/7; ++n){
 		wKey[n] = new QPushButton(this);
-		wKey[n]->setStyleSheet("background-color:white");
-		wKey[n]->setGeometry(key_horizontal_placement,180, 60, 180);
-		key_horizontal_placement += 60;
+		wKey[n]->setStyleSheet("background-color:white; border: 1px solid black");
+		wKey[n]->setGeometry(key_horizontal_placement,216, 30, 180);
+		key_horizontal_placement += 31;
 		wKey[n]->show();
 		connect(wKey[n], &QPushButton::pressed, this, [=](){ this->playWhiteNote(n);});
 		connect(wKey[n], &QPushButton::released, this, &whiteKey::releaseNote);
@@ -23,17 +23,18 @@ whiteKey::whiteKey(){
 
 blackKey::blackKey(){
 
-	int key_horizontal_placement = 55;
+	int key_horizontal_placement = 32;
 	int skip_one_key = 57;
 			
 	for (long unsigned int n = 0; n != sizeof(bKey)/7; ++n){
 		bKey[n] = new QPushButton(this);
-		bKey[n]->setGeometry(key_horizontal_placement,180, 30, 110);
-		if (n == 1){
-			key_horizontal_placement += 60 + skip_one_key;
+		bKey[n]->setStyleSheet("background-color: black");
+		bKey[n]->setGeometry(key_horizontal_placement,216, 15, 110);
+		if (n == 1 || n == 4 || n == 6 || n == 9 || n == 11 || n == 14 || n == 16){
+			key_horizontal_placement += 2+skip_one_key;
 		}
 		else{
-			key_horizontal_placement += 60;
+			key_horizontal_placement += 33;
 		}
 		bKey[n]->show();
 		connect(bKey[n], &QPushButton::pressed, this, [=](){ this->playBlackNote(n);});

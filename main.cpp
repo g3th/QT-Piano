@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
 	
 	PianoGUI.setStyleSheet(css);
 	blackKey myPiano;
-	myPiano.setFixedSize(498,400);
+	myPiano.setFixedSize(915,400);
 	myPiano.show();
 	
 	return PianoGUI.exec();

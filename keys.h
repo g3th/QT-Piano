@@ -15,7 +15,7 @@ private slots:
 	void releaseNote();
 
 private:
-	QPushButton *wKey[7];
+	QPushButton *wKey[26];
 
 };
 
@@ -30,7 +30,7 @@ private slots:
 	void releaseNote();
 	
 private:
-	QPushButton *bKey[5];
+	QPushButton *bKey[18];
 };
 
 #endif
