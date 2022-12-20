@@ -18,7 +18,6 @@ void startSynth(){
 	synth = new_fluid_synth(settings);
 	adriver = new_fluid_audio_driver(settings, synth);
 	fluid_synth_sfload(synth,"/usr/share/sounds/sf2/FluidR3_GM.sf2",1);
-	
 }
 
 void whiteKey::playWhiteNote(int n){
