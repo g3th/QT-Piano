@@ -1,5 +1,5 @@
 # QT Piano GUI
-## Generating Midi Note-on signals by clicking a button
+## Generating Midi Note-on Signals by Clicking a Button
 
 This interface works by using the fluidsynth api (add -lfluidsynth to Makefile's LIBS) and will simply generate note-on, note-off messages at the mouseclick of a button.
 
