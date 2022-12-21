@@ -9,4 +9,6 @@ To install fluidsynth simply:
 
 or follow this guide: ```https://wiki.debian.org/PulseAudioMidi```
 
-Build with ```make``` and launch with ```./piano```.
+In terminal, build with qmake, as the ```*.pro``` file is already included.
+
+Compile with ```make``` and launch with ```./piano```. Again, don't forget to add ```-lfluidsynth``` to Makefile LIBS variable.
